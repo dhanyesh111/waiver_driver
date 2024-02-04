@@ -1,0 +1,43 @@
+name: waiver_driver
+description: "Waiver Driver App"
+
+publish_to: 'none'
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.5 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  get: ^4.6.5
+  get_storage: ^2.1.1
+  flutter_svg: ^1.1.6
+  google_fonts: ^4.0.3
+  flutter_screenutil: ^5.7.0
+  intl: ^0.17.0
+  image_picker: ^0.8.7+5
+  image_cropper: ^4.0.1
+  http: ^0.13.5
+  sms_autofill: ^2.3.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    
+
+
+ 
