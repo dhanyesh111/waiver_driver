@@ -57,12 +57,12 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CountrySelection(),
+                    const CountrySelection(),
                     Container(
                       height: 1,
                       color: AppColors.grey155,
                     ),
-                    MobileNumberTextField(),
+                    const MobileNumberTextField(),
                   ],
                 ),
               ),
@@ -135,8 +135,8 @@ class CountrySelection extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButtonFormField<CountryModel>(
-          validator: (value) => Validators.isEmpty(
-              value?.mobileCode ?? "", "This field is required"),
+          validator: (value) =>
+              Validators.isEmpty(value: value?.mobileCode ?? ""),
           value: LoginController.to.selectedCountry,
           icon: SvgPicture.asset(AppIcons.downArrow),
           items: LoginController.to.countryList

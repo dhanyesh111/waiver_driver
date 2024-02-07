@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import '../app_buttons/app_buttons.dart';
 import '../app_colors/app_colors.dart';
 
-AppBar appBar({required String title, bool? showMenuButton}) {
+AppBar appBar(
+    {required String title, bool? showMenuButton, List<Widget>? actions}) {
   return AppBar(
     backgroundColor: Colors.white,
     leading: (showMenuButton ?? false)
@@ -29,9 +30,11 @@ AppBar appBar({required String title, bool? showMenuButton}) {
               onTap: () => Get.back(),
             ),
           ),
+    actions: actions,
     title: Text(
       title,
-      style: TextStyle(color: AppColors.black, fontSize: 26.sp),
+      style: TextStyle(
+          color: AppColors.black, fontSize: 20.sp, fontWeight: FontWeight.w500),
     ),
   );
 }

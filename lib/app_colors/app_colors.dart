@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class AppColors {
   static Color black = const Color.fromRGBO(1, 1, 1, 1);
   static Color grey93 = const Color.fromRGBO(93, 102, 117, 1);
+  static Color grey122 = const Color.fromRGBO(122, 122, 122, 1.0);
   static Color grey155 = const Color.fromRGBO(230, 230, 230, 1.0);
 
-  static Color grey187 = const Color.fromRGBO(249, 250, 251, 1);
+  static Color grey249 = const Color.fromRGBO(249, 250, 251, 1);
   static Color white = const Color.fromRGBO(255, 255, 255, 1);
   static Color blue = const Color.fromRGBO(64, 117, 202, 1);
   static Color blue12 = const Color.fromRGBO(34, 91, 182, 1.0);

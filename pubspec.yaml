@@ -14,10 +14,12 @@ dependencies:
   flutter:
     sdk: flutter
   
-  get: ^4.6.5
+  get: ^4.6.6
   get_storage: ^2.1.1
   flutter_svg: ^1.1.6
   google_fonts: ^4.0.3
+  google_maps_flutter: ^2.5.3
+  geolocator: ^10.1.0
   flutter_screenutil: ^5.7.0
   intl: ^0.17.0
   image_picker: ^0.8.7+5

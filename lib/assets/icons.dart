@@ -7,6 +7,20 @@ class AppIcons {
   static String google = "assets/icons/google.svg";
   static String arrowLeft = "assets/icons/arrow_left.svg";
   static String downArrow = "assets/icons/arrow_down.svg";
+  static String arrowRight = "assets/icons/arrow_right.svg";
+  static String calender = "assets/icons/calender.png";
+  static String menu = "assets/icons/menu.svg";
+  static String wallet = "assets/icons/wallet.png";
+  static String user = "assets/icons/user.png";
+  static String star = "assets/icons/star.png";
+  static String clock = "assets/icons/clock.png";
+  static String referAndEarn = "assets/icons/refer_and_earn.png";
+  static String notification = "assets/icons/notification.png";
+  static String setting = "assets/icons/setting.png";
+  static String help = "assets/icons/help.png";
+  static String logout = "assets/icons/logout.png";
+  static String bankDetails = "assets/icons/bank_details.png";
+  static String customerSupport = "assets/icons/customer_support.png";
 
   ///png=======================================================================>
   static String passwordHidden = "assets/icons/icon_password_hidden.png";

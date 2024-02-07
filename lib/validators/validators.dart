@@ -2,21 +2,42 @@
 
 class Validators {
   //check is the given string is empty or not
-  static String? isEmpty(String value, String? errorText) {
-    if (value.isEmpty) {
+  static String? isEmpty({required String? value, String? errorText}) {
+    if ((value ?? "").isEmpty) {
       return errorText ?? "This field is required";
     } else {
       return null;
     }
   }
 
-  static String? isEMail(String value) {
-    if (value.isEmpty) {
+  static String? isEMail({required String? value}) {
+    if ((value ?? "").isEmpty) {
       return "This field is required";
     } else if (!RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(value)) {
+        .hasMatch((value ?? ""))) {
       return "Please enter a valid email";
+    } else {
+      return null;
+    }
+  }
+
+  static String? isBankAccountNumber({required String? value}) {
+    if ((value ?? "").isEmpty) {
+      return "This field is required";
+    } else if (!RegExp(r"^\d{9,18}$").hasMatch((value ?? ""))) {
+      return "Please enter a valid Account Number";
+    } else {
+      return null;
+    }
+  }
+
+  static String? isBankISFCNumber({required String? value}) {
+    if ((value ?? "").isEmpty) {
+      return "This field is required";
+    } else if (!RegExp(r"^[A-Za-z]{4}[a-zA-Z0-9]{7}$")
+        .hasMatch((value ?? ""))) {
+      return "Please enter a valid IFSC number";
     } else {
       return null;
     }

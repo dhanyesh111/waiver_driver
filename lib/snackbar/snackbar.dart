@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../app_colors/app_colors.dart';
 
-class ThaiSnackBar extends StatelessWidget {
+class AppSnackBar extends StatelessWidget {
   final String text;
 
-  const ThaiSnackBar({super.key, required this.text});
+  const AppSnackBar({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

@@ -38,7 +38,7 @@ class OtpScreen extends StatelessWidget {
               "We send a code to ( ${OtpController.to.mobileCode} ${OtpController.to.mobileNumber} ).Enter it here to verify your identity",
               style: TextStyle(
                   color: AppColors.grey93,
-                  fontSize: 16.sp,
+                  fontSize: 15.sp,
                   height: 1,
                   fontWeight: FontWeight.w200),
             ),

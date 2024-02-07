@@ -13,7 +13,7 @@ class BlueButton extends StatelessWidget {
   final double? radius;
   final void Function()? onTap;
   final bool? isLoading;
-
+  final Widget? icon;
   const BlueButton({
     super.key,
     required this.text,
@@ -23,6 +23,7 @@ class BlueButton extends StatelessWidget {
     this.width,
     this.radius,
     this.isLoading,
+    this.icon,
   });
 
   @override
@@ -35,7 +36,6 @@ class BlueButton extends StatelessWidget {
         child: Center(
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 250),
-            padding: EdgeInsets.all(5.sp),
             height: (isLoading ?? false) ? height ?? 60.sp : height ?? 52.sp,
             width: (isLoading ?? false) ? height ?? 60.sp : width ?? 370.sp,
             decoration: BoxDecoration(
@@ -48,10 +48,22 @@ class BlueButton extends StatelessWidget {
                   ? CircularProgressIndicator(
                       color: AppColors.white,
                     )
-                  : Text(
-                      text,
-                      style: TextStyle(
-                          fontSize: fontSize ?? 16.sp, color: AppColors.white),
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        icon != null
+                            ? Container(
+                                padding: EdgeInsets.only(right: 10.sp),
+                                child: icon,
+                              )
+                            : const SizedBox(),
+                        Text(
+                          text,
+                          style: TextStyle(
+                              fontSize: fontSize ?? 16.sp,
+                              color: AppColors.white),
+                        ),
+                      ],
                     ),
             ),
           ),
@@ -105,7 +117,7 @@ class WhiteButton extends StatelessWidget {
             child: Center(
               child: isLoading ?? false
                   ? CircularProgressIndicator(
-                      color: AppColors.white,
+                      color: AppColors.black,
                     )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.center,

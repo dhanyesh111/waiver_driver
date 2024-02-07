@@ -2,23 +2,29 @@ import 'package:flutter/material.dart';
 
 import '../app_colors/app_colors.dart';
 
-class CircleWithIndigoGradient extends StatelessWidget {
+class CircleWithIcon extends StatelessWidget {
   final Widget child;
   final double height;
-  const CircleWithIndigoGradient({
+  final void Function()? onTap;
+  final Color color;
+  const CircleWithIcon({
     super.key,
     required this.height,
     required this.child,
+    required this.color,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: height,
-      decoration:
-          BoxDecoration(shape: BoxShape.circle, color: AppColors.grey93),
-      child: Center(child: child),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: height,
+        width: height,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+        child: Center(child: child),
+      ),
     );
   }
 }

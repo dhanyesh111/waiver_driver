@@ -1,7 +1,10 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:flutter_svg/svg.dart';
-// import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+
+import '../app_colors/app_colors.dart';
+import '../assets/icons.dart';
+
 //
 // import '../app_colors/app_colors.dart';
 // import '../assets/icons.dart';
@@ -101,100 +104,132 @@
 //   }
 // }
 //
-// class AppTextFormFieldDateCalender extends StatelessWidget {
-//   final String placeHolder;
-//   final String? label;
-//   final bool? readOnly;
-//   final DateTime? lastDate;
-//   final DateTime? startDate;
-//   final TextEditingController controller;
-//   final String? Function(String?)? validator;
-//
-//   const AppTextFormFieldDateCalender(
-//       {super.key,
-//       required this.placeHolder,
-//       this.readOnly,
-//       this.lastDate,
-//       this.startDate,
-//       required this.controller,
-//       this.label,
-//       this.validator});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     DateFormat dateFormat = DateFormat("d / MMM / yyyy");
-//     return InkWell(
-//       onTap: () async {
-//         DateTime? date = await showDatePicker(
-//             context: context,
-//             firstDate: startDate ?? DateTime(1998),
-//             lastDate: lastDate ?? DateTime.now(),
-//             helpText: label,
-//             builder: (context, child) {
-//               return Theme(
-//                 data: ThemeData(
-//                   colorScheme: ColorScheme.light(
-//                     primary: AppColors.black,
-//                   ),
-//                 ),
-//                 child: child!,
-//               );
-//             },
-//             initialDate: DateTime.now());
-//
-//         if (date != null) {
-//           controller.text = dateFormat.format(date);
-//         }
-//       },
-//       child: IgnorePointer(
-//         child: TextFormField(
-//           autovalidateMode: AutovalidateMode.onUserInteraction,
-//           controller: controller,
-//           readOnly: readOnly ?? false,
-//           validator: validator,
-//           decoration: InputDecoration(
-//             isDense: false,
-//             suffixIcon: Container(
-//               padding: EdgeInsets.all(15.sp),
-//               child: SvgPicture.asset(
-//                 AppIcons.calender,
-//               ),
-//             ),
-//             counterText: "",
-//             contentPadding:
-//                 EdgeInsets.symmetric(horizontal: 15.sp, vertical: 15.sp),
-//             label: Text(readOnly ?? false ? "" : placeHolder),
-//             floatingLabelStyle: albertSansRegular.copyWith(
-//                 fontSize: 14.sp, color: AppColors.black),
-//             labelStyle: albertSansRegular.copyWith(
-//                 fontSize: 14.sp, color: AppColors.black),
-//             filled: true,
-//             fillColor: (readOnly ?? false)
-//                 ? AppColors.black.withOpacity(.1)
-//                 : AppColors.white,
-//             border: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(10.sp),
-//                 borderSide: BorderSide(
-//                     color: AppColors.grey249
-//                         .withOpacity(readOnly ?? false ? 0 : 1))),
-//             enabledBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(10.sp),
-//                 borderSide: BorderSide(
-//                     color: AppColors.grey249
-//                         .withOpacity(readOnly ?? false ? 0 : 1))),
-//             focusedBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(10.sp),
-//                 borderSide: BorderSide(
-//                     color: AppColors.grey249
-//                         .withOpacity(readOnly ?? false ? 0 : 1))),
-//             disabledBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(10.sp),
-//                 borderSide: BorderSide(
-//                     color: AppColors.grey249
-//                         .withOpacity(readOnly ?? false ? 0 : 1))),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+class AppDatePickerFormField extends StatelessWidget {
+  final String header;
+  final String? placeHolder;
+  final String? label;
+  final bool? readOnly;
+  final void Function()? readOnlyCallBack;
+  final DateTime? initialDate;
+  final Widget? icon;
+  final DateTime? lastDate;
+  final DateTime? startDate;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+
+  const AppDatePickerFormField(
+      {super.key,
+      required this.header,
+      this.readOnly,
+      this.readOnlyCallBack,
+      this.placeHolder,
+      this.icon,
+      this.initialDate,
+      this.lastDate,
+      this.startDate,
+      required this.controller,
+      this.label,
+      this.validator});
+
+  @override
+  Widget build(BuildContext context) {
+    DateFormat dateFormat = DateFormat("d / MMM / yyyy");
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          header,
+          style: TextStyle(
+              fontSize: 15.sp,
+              color: AppColors.black,
+              fontWeight: FontWeight.w600),
+        ),
+        SizedBox(
+          height: 7.sp,
+        ),
+        InkWell(
+          onTap: (readOnly ?? false)
+              ? readOnlyCallBack
+              : () async {
+                  DateTime? date = await showDatePicker(
+                      context: context,
+                      firstDate: startDate ?? DateTime(1998),
+                      lastDate: lastDate ?? DateTime.now(),
+                      helpText: label,
+                      builder: (context, child) {
+                        return Theme(
+                          data: ThemeData(
+                            colorScheme: ColorScheme.light(
+                              primary: AppColors.black,
+                            ),
+                          ),
+                          child: child!,
+                        );
+                      },
+                      initialDate: initialDate ?? DateTime.now());
+
+                  if (date != null) {
+                    controller.text = dateFormat.format(date);
+                  }
+                },
+          child: IgnorePointer(
+            child: TextFormField(
+              style: TextStyle(
+                  color: readOnly ?? false ? AppColors.black : AppColors.grey93,
+                  fontSize: 14.sp),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              controller: controller,
+              readOnly: readOnly ?? false,
+              validator: validator,
+              decoration: InputDecoration(
+                isDense: false,
+                suffixIconConstraints: BoxConstraints(
+                  maxHeight: 25.sp,
+                  maxWidth: 65.sp,
+                ),
+                suffixIcon: Container(
+                  padding: EdgeInsets.only(right: 13.sp),
+                  child: icon ??
+                      Image.asset(
+                        AppIcons.calender,
+                      ),
+                ),
+                hintText: placeHolder,
+                hintStyle: TextStyle(fontSize: 14.sp, color: AppColors.grey122),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 15.sp, vertical: 15.sp),
+                filled: true,
+                fillColor:
+                    (readOnly ?? false) ? AppColors.grey249 : AppColors.white,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.sp),
+                    borderSide: BorderSide(
+                        color: (readOnly ?? false)
+                            ? AppColors.grey249
+                            : AppColors.grey155)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.sp),
+                    borderSide: BorderSide(
+                        color: (readOnly ?? false)
+                            ? AppColors.grey249
+                            : AppColors.grey155)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.sp),
+                    borderSide: BorderSide(
+                        color: (readOnly ?? false)
+                            ? AppColors.grey249
+                            : AppColors.grey155)),
+                disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.sp),
+                    borderSide: BorderSide(
+                        color: (readOnly ?? false)
+                            ? AppColors.grey249
+                            : AppColors.grey155)),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -8,6 +8,7 @@ import 'loding_animation_controller.dart';
 class LoadingBarsAnimation extends StatelessWidget {
   final double? height;
   final double? width;
+
   const LoadingBarsAnimation({
     super.key,
     this.width,
@@ -139,7 +140,7 @@ class DotContainer extends StatelessWidget {
                       )
                       .value,
                   decoration: BoxDecoration(
-                    color: AppColors.black,
+                    color: AppColors.grey93,
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
@@ -173,7 +174,7 @@ class DotContainer extends StatelessWidget {
                       )
                       .value,
                   decoration: BoxDecoration(
-                    color: AppColors.black,
+                    color: AppColors.grey93,
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
@@ -189,27 +190,31 @@ class DotContainer extends StatelessWidget {
 class LoadingAnimationDots extends StatelessWidget {
   final LoadingDotAnimationController loadingDotAnimationController =
       Get.put(LoadingDotAnimationController());
+  final double? height;
 
-  LoadingAnimationDots({super.key});
+  final double? width;
+
+  LoadingAnimationDots({super.key, this.height, this.width});
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox.fromSize(
-        size: Size(100.sp, 30.sp),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(5, (index) {
-            return ScaleTransition(
-              scale: DelayTween(begin: .3, end: 1.0, delay: index * .2)
-                  .animate(loadingDotAnimationController.controller),
-              child: SizedBox.fromSize(
-                  size: Size.square(10.sp),
-                  child: DecoratedBox(
-                      decoration: BoxDecoration(
-                          color: AppColors.black, shape: BoxShape.circle))),
-            );
-          }),
-        ),
+    return SizedBox(
+      width: width ?? 100.sp,
+      height: height ?? 30.sp,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(5, (index) {
+          return ScaleTransition(
+            scale: DelayTween(begin: .3, end: 1.0, delay: index * .2)
+                .animate(loadingDotAnimationController.controller),
+            child: SizedBox.fromSize(
+                size: Size.square(10.sp),
+                child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        color: AppColors.grey93, shape: BoxShape.circle))),
+          );
+        }),
       ),
     );
   }
