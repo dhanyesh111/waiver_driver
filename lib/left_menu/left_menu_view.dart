@@ -57,7 +57,7 @@ class LeftMenu extends StatelessWidget {
           ),
           LeftMenuItem(
             item: LeftMenuController.to.bankDetails,
-            onTap: () => Get.offAndToNamed(AppRoutes.bankAccount),
+            onTap: () => Get.offAndToNamed(AppRoutes.viewBankAccount),
           ),
           SizedBox(
             height: 30.sp,

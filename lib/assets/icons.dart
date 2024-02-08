@@ -21,6 +21,13 @@ class AppIcons {
   static String logout = "assets/icons/logout.png";
   static String bankDetails = "assets/icons/bank_details.png";
   static String customerSupport = "assets/icons/customer_support.png";
+  static String location = "assets/icons/location.png";
+  static String startAndStop = "assets/icons/start_and_stop.png";
+  static String offers = "assets/icons/offers.png";
+  static String preferences = "assets/icons/preferences.png";
+  static String darkMode = "assets/icons/dark_mode.png";
+  static String delete = "assets/icons/delete.png";
+  static String safety = "assets/icons/safety.png";
 
   ///png=======================================================================>
   static String passwordHidden = "assets/icons/icon_password_hidden.png";

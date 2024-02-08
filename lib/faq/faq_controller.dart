@@ -9,4 +9,17 @@ class FaqControllerBinding extends Bindings {
 
 class FaqController extends GetxController {
   static FaqController get to => Get.find();
+  @override
+  void onInit() {
+    faqTitle = Get.arguments;
+    super.onInit();
+  }
+
+  String faqTitle = "";
+  List<String> faqTopics = [
+    "Account Related",
+    "Referral Related",
+    "Account Related",
+    "Account Related",
+  ];
 }

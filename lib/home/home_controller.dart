@@ -40,7 +40,7 @@ class HomeController extends GetxController {
       text: 'Rating');
   DashBoardItemModel cancellation = DashBoardItemModel(
       icon: Icon(Icons.close, color: AppColors.white),
-      value: '2 %',
+      value: '2.0%',
       text: 'Cancellation');
   Rx<Polyline?> polyline = Rx<Polyline?>(null);
   Polyline addPolyline() {

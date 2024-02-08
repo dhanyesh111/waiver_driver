@@ -65,10 +65,14 @@ import 'package:waiver_driver/sign_in/sign_in_controller.dart';
 import 'package:waiver_driver/sign_in/sign_in_view.dart';
 import 'package:waiver_driver/splash/splash_controller.dart';
 import 'package:waiver_driver/splash/splash_view.dart';
+import 'package:waiver_driver/trip_details/trip_details_controller.dart';
+import 'package:waiver_driver/trip_details/trip_details_view.dart';
 import 'package:waiver_driver/vehicle_details/vehicle_details_controller.dart';
 import 'package:waiver_driver/vehicle_details/vehicle_details_view.dart';
 import 'package:waiver_driver/vehicle_proof/vehicle_proof_controller.dart';
 import 'package:waiver_driver/vehicle_proof/vehicle_proof_view.dart';
+import 'package:waiver_driver/view_bank_account/view_bank_account_controller.dart';
+import 'package:waiver_driver/view_bank_account/view_bank_bank_view.dart';
 import 'package:waiver_driver/waiting_for_authorization/waiting_for_authorization_controller.dart';
 import 'package:waiver_driver/waiting_for_authorization/waiting_for_authorization_view.dart';
 import 'package:waiver_driver/welcome/welcome_controller.dart';
@@ -145,6 +149,14 @@ class AppPages {
         name: AppRoutes.waitingForAuthorization,
         page: () => const WaitingForAuthorizationScreen(),
         binding: WaitingForAuthorizationControllerBinding()),
+    GetPage(
+        name: AppRoutes.viewBankAccount,
+        page: () => const ViewBankAccountScreen(),
+        binding: ViewBankAccountControllerBinding()),
+    GetPage(
+        name: AppRoutes.tripDetails,
+        page: () => const TripDetailsView(),
+        binding: TripDetailsControllerBinding()),
     GetPage(
         name: AppRoutes.locationNotEnabled,
         page: () => const LocationNotEnabledScreen(),

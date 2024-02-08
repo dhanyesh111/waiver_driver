@@ -26,6 +26,7 @@ dependencies:
   image_cropper: ^4.0.1
   http: ^0.13.5
   sms_autofill: ^2.3.0
+  share_plus: ^7.2.2
 
 
 dev_dependencies:

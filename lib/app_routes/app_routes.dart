@@ -16,9 +16,11 @@ class AppRoutes {
   static String waitingForAuthorization = "/waitingForAuthorization";
   static String locationNotEnabled = "/locationNotEnabled";
   static String home = "/home";
+  static String viewBankAccount = "/viewBankAccount";
   static String reasonForCancel = "/reasonForCancel";
   static String profile = "/profile";
   static String earning = "/earning";
+  static String tripDetails = "/tripDetails";
   static String rating = "/rating";
   static String myRides = "/myRides";
   static String receipt = "/receipt";
