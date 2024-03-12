@@ -194,7 +194,7 @@ class AppDatePickerFormField extends StatelessWidget {
                         AppIcons.calender,
                       ),
                 ),
-                hintText: placeHolder,
+                hintText: placeHolder ?? "Select",
                 hintStyle: TextStyle(fontSize: 14.sp, color: AppColors.grey122),
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 15.sp, vertical: 15.sp),

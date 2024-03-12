@@ -7,11 +7,13 @@ class CircleWithIcon extends StatelessWidget {
   final double height;
   final void Function()? onTap;
   final Color color;
+  final bool? enableBorder;
   const CircleWithIcon({
     super.key,
     required this.height,
     required this.child,
     required this.color,
+    this.enableBorder,
     this.onTap,
   });
 
@@ -22,7 +24,13 @@ class CircleWithIcon extends StatelessWidget {
       child: Container(
         height: height,
         width: height,
-        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color,
+            border: Border.all(
+                color: enableBorder ?? false
+                    ? AppColors.grey93
+                    : AppColors.white.withOpacity(0))),
         child: Center(child: child),
       ),
     );

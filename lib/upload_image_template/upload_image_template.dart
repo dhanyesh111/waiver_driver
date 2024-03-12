@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:waiver_driver/app_network_image/app_network_image.dart';
 
 import '../app_colors/app_colors.dart';
 import '../circle_with_gradient/circle_with_gradient.dart';
@@ -11,16 +10,20 @@ import '../circle_with_gradient/circle_with_gradient.dart';
 class UpLoadImageTemplate extends StatelessWidget {
   final double height;
   final double width;
+  final double? radius;
   final String image;
   final String? placeHolder;
   final bool? isRectangle;
   final Function(ImageSource source) onTap;
+  final void Function()? closeOnTap;
   const UpLoadImageTemplate(
       {super.key,
       required this.width,
       required this.height,
       this.placeHolder,
       this.isRectangle,
+      this.closeOnTap,
+      this.radius,
       required this.image,
       required this.onTap});
 
@@ -68,18 +71,26 @@ class UpLoadImageTemplate extends StatelessWidget {
                     margin: EdgeInsets.only(top: 15.sp, right: 15.sp),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.sp),
-                      child: Image.file(File(image)),
+                      child: AppNetworkImage(
+                        imageUrl: image,
+                        radius: radius,
+                        height: height,
+                        width: width,
+                      ),
                     ),
                   ),
                   Positioned(
                       top: 5,
                       right: 5,
-                      child: CircleWithIcon(
-                        height: 30.sp,
-                        color: AppColors.red,
-                        child: Icon(
-                          Icons.clear,
-                          color: AppColors.white,
+                      child: GestureDetector(
+                        onTap: closeOnTap,
+                        child: CircleWithIcon(
+                          height: 30.sp,
+                          color: AppColors.red,
+                          child: Icon(
+                            Icons.clear,
+                            color: AppColors.white,
+                          ),
                         ),
                       )),
                 ],

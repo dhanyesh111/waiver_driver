@@ -38,28 +38,28 @@ class SettingScreen extends StatelessWidget {
               height: 20.sp,
             ),
             SettingListingItem(
-              setting: SettingController.to.preferences,
+              setting: SettingController.to.preferencesItem,
               onTap: () => Get.toNamed(AppRoutes.preferences),
             ),
             SizedBox(
               height: 15.sp,
             ),
             SettingListingItem(
-              setting: SettingController.to.darkMode,
+              setting: SettingController.to.darkModeItem,
               onTap: () => Get.bottomSheet(const DarkModeBottomSheet()),
             ),
             SizedBox(
               height: 15.sp,
             ),
             SettingListingItem(
-              setting: SettingController.to.logout,
+              setting: SettingController.to.logoutItem,
               onTap: () => Get.bottomSheet(LogoutBottomSheet()),
             ),
             SizedBox(
               height: 15.sp,
             ),
             SettingListingItem(
-                setting: SettingController.to.deleteAccount,
+                setting: SettingController.to.deleteAccountItem,
                 onTap: () => Get.bottomSheet(DeleteAccountBottomSheet())),
             SizedBox(
               height: 15.sp,

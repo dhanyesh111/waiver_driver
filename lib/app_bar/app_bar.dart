@@ -3,25 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../app_buttons/app_buttons.dart';
-import '../app_colors/app_colors.dart';
 
 AppBar appBar(
     {required String title, bool? showMenuButton, List<Widget>? actions}) {
   return AppBar(
-    backgroundColor: Colors.white,
     leading: (showMenuButton ?? false)
         ? Builder(
-            builder: (context) => GestureDetector(
-                  onTap: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.only(right: 15.sp, top: 15.sp),
-                    child: Image.asset(
-                      // AppIcons.menu,
-                      "",
-                      height: 25.sp,
-                    ),
+            builder: (context) => Container(
+                  margin: EdgeInsets.all(10.sp),
+                  child: MenuButton(
+                    onTap: () => Scaffold.of(context).openDrawer(),
                   ),
                 ))
         : Container(
@@ -33,8 +24,7 @@ AppBar appBar(
     actions: actions,
     title: Text(
       title,
-      style: TextStyle(
-          color: AppColors.black, fontSize: 20.sp, fontWeight: FontWeight.w500),
+      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
     ),
   );
 }

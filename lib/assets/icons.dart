@@ -28,6 +28,10 @@ class AppIcons {
   static String darkMode = "assets/icons/dark_mode.png";
   static String delete = "assets/icons/delete.png";
   static String safety = "assets/icons/safety.png";
+  static String message = "assets/icons/message.png";
+  static String navigation = "assets/icons/navigation.png";
+  static String phone = "assets/icons/phone.png";
+  static String car = "assets/icons/car.png";
 
   ///png=======================================================================>
   static String passwordHidden = "assets/icons/icon_password_hidden.png";

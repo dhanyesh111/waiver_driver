@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:waiver_driver/app_bar/app_bar.dart';
-import 'package:waiver_driver/app_buttons/app_buttons.dart';
 import 'package:waiver_driver/app_routes/app_routes.dart';
 import 'package:waiver_driver/assets/icons.dart';
 import 'package:waiver_driver/chauffeur_proof/chauffeur_proof_controller.dart';
 import 'package:waiver_driver/chauffeur_proof/chauffeur_proof_model.dart';
 import 'package:waiver_driver/enums/enums.dart';
 
+import '../app_buttons/app_buttons.dart';
 import '../app_colors/app_colors.dart';
 import '../circle_with_gradient/circle_with_gradient.dart';
 
@@ -134,7 +134,7 @@ class ChauffeurProofItemList extends StatelessWidget {
           border: Border.all(color: AppColors.grey155)),
       child: Column(
         children: [
-          ChauffeurProofItem(
+          AddProofItem(
             proof: ChauffeurProofController.to.profilePhoto,
             onTap: () => Get.toNamed(AppRoutes.profilePhoto),
           ),
@@ -142,7 +142,7 @@ class ChauffeurProofItemList extends StatelessWidget {
             height: 1,
             color: AppColors.grey155,
           ),
-          ChauffeurProofItem(
+          AddProofItem(
             proof: ChauffeurProofController.to.aadharCard,
             onTap: () => Get.toNamed(AppRoutes.aadharCard),
           ),
@@ -150,7 +150,7 @@ class ChauffeurProofItemList extends StatelessWidget {
             height: 1,
             color: AppColors.grey155,
           ),
-          ChauffeurProofItem(
+          AddProofItem(
             proof: ChauffeurProofController.to.drivingLicense,
             onTap: () => Get.toNamed(AppRoutes.drivingLicence),
           ),
@@ -158,7 +158,7 @@ class ChauffeurProofItemList extends StatelessWidget {
             height: 1,
             color: AppColors.grey155,
           ),
-          ChauffeurProofItem(
+          AddProofItem(
             proof: ChauffeurProofController.to.policeClearanceCertificate,
             onTap: () => Get.toNamed(AppRoutes.policeClearanceCertificate),
           ),
@@ -166,7 +166,7 @@ class ChauffeurProofItemList extends StatelessWidget {
             height: 1,
             color: AppColors.grey155,
           ),
-          ChauffeurProofItem(
+          AddProofItem(
             proof: ChauffeurProofController.to.bankAccount,
             onTap: () => Get.toNamed(AppRoutes.bankAccount),
           ),
@@ -180,10 +180,10 @@ class ChauffeurProofItemList extends StatelessWidget {
   }
 }
 
-class ChauffeurProofItem extends StatelessWidget {
-  ChauffeurProofItemModel proof;
+class AddProofItem extends StatelessWidget {
+  AddProofItemModel proof;
   Function()? onTap;
-  ChauffeurProofItem({required this.proof, required this.onTap});
+  AddProofItem({required this.proof, required this.onTap});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -201,9 +201,11 @@ class ChauffeurProofItem extends StatelessWidget {
                       fontSize: 15.sp,
                       fontWeight: FontWeight.w600)),
             ),
-            ChauffeurProofItemContainer(
-              status: proof.approvalStatus,
-            ),
+            GetX<ChauffeurProofController>(builder: (controller) {
+              return ChauffeurProofItemContainer(
+                status: proof.approvalStatus.value,
+              );
+            }),
           ],
         ),
       ),

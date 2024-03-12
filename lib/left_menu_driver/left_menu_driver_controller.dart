@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 import 'package:waiver_driver/app_routes/app_routes.dart';
 import 'package:waiver_driver/assets/icons.dart';
 
-import 'left_menu_model.dart';
+import 'left_menu_driver_model.dart';
 
-class LeftMenuController extends GetxController {
-  static LeftMenuController get to => Get.find();
+class LeftMenuControllerDriver extends GetxController {
+  static LeftMenuControllerDriver get to => Get.find();
 
   LeftMenuItemModel myEarning =
       LeftMenuItemModel(icon: AppIcons.wallet, text: 'My Earning');

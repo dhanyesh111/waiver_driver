@@ -1,8 +1,13 @@
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../api_services/api_services.dart';
 import '../app_colors/app_colors.dart';
+import '../chauffeur_proof/chauffeur_proof_controller.dart';
+import '../enums/enums.dart';
+import 'aadhar_card_model.dart';
 
 class AadharCardControllerBinding extends Bindings {
   @override
@@ -51,7 +56,7 @@ class AadharCardController extends GetxController {
     Get.back();
   }
 
-  uploadDocument() {
+  uploadDocument() async {
     if (aadharCardFrontSide.value.isEmpty) {
       errorMessageAadharCard.value =
           "Please upload front side of your aadhar card";
@@ -61,7 +66,20 @@ class AadharCardController extends GetxController {
           "Please upload back side of your aadhar card";
       showErrorMessageAadharCard.value = true;
     } else {
-      Get.back();
+      List<http.MultipartFile> files = [
+        await http.MultipartFile.fromPath(
+            "files[0]", aadharCardSideBackSide.value),
+        await http.MultipartFile.fromPath(
+            "files[1]", aadharCardSideBackSide.value),
+      ];
+      Map<String, String> fields = {"document_type": "ADR"};
+      UploadAadharResponseModel response =
+          await ApiServices.uploadDocument(files: files, fields: fields);
+      if (response.status == 200) {
+        ChauffeurProofController.to.aadharCard.approvalStatus.value =
+            ChauffeurProofApprovalStatus.waitingForApproval;
+        Get.back();
+      }
     }
   }
 }

@@ -1,8 +1,13 @@
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../aadhar_card/aadhar_card_model.dart';
+import '../api_services/api_services.dart';
 import '../app_colors/app_colors.dart';
+import '../chauffeur_proof/chauffeur_proof_controller.dart';
+import '../enums/enums.dart';
 
 class PoliceClearanceCertificateControllerBinding extends Bindings {
   @override
@@ -13,8 +18,8 @@ class PoliceClearanceCertificateControllerBinding extends Bindings {
 
 class PoliceClearanceCertificateController extends GetxController {
   static PoliceClearanceCertificateController get to => Get.find();
-  RxString profilePhoto = "".obs;
-  RxBool showErrorMessageProfilePhoto = false.obs;
+  RxString policeClearanceCertificate = "".obs;
+  RxBool showErrorMessagePoliceClearanceCertificate = false.obs;
   uploadPhoto({
     required ImageSource source,
   }) async {
@@ -39,17 +44,29 @@ class PoliceClearanceCertificateController extends GetxController {
           ),
         ],
       );
-      profilePhoto.value = cropperImage?.path ?? "";
-      showErrorMessageProfilePhoto.value = false;
+      policeClearanceCertificate.value = cropperImage?.path ?? "";
+      showErrorMessagePoliceClearanceCertificate.value = false;
     }
     Get.back();
   }
 
-  uploadDocument() {
-    if (profilePhoto.value.isEmpty) {
-      showErrorMessageProfilePhoto.value = true;
+  uploadDocument() async {
+    if (policeClearanceCertificate.value.isEmpty) {
+      showErrorMessagePoliceClearanceCertificate.value = true;
     } else {
-      Get.back();
+      List<http.MultipartFile> files = [
+        await http.MultipartFile.fromPath(
+            "files[0]", policeClearanceCertificate.value),
+      ];
+      Map<String, String> fields = {"document_type": "CLS"};
+      UploadAadharResponseModel response =
+          await ApiServices.uploadDocument(files: files, fields: fields);
+
+      if (response.status == 200) {
+        ChauffeurProofController.to.policeClearanceCertificate.approvalStatus
+            .value = ChauffeurProofApprovalStatus.waitingForApproval;
+        Get.back();
+      }
     }
   }
 }

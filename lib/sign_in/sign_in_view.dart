@@ -85,10 +85,14 @@ class WelcomeContainer extends StatelessWidget {
           SizedBox(
             height: 16.sp,
           ),
-          WhiteButton(
-            icon: SvgPicture.asset(AppIcons.google),
-            text: "Continue with Google",
-          ),
+          GetX<SignInController>(builder: (controller) {
+            return WhiteButton(
+              icon: SvgPicture.asset(AppIcons.google),
+              text: "Continue with Google",
+              isLoading: controller.isGoogleLoginLoading.value,
+              onTap: () => controller.loginWithGoogle(),
+            );
+          }),
         ],
       ),
     );

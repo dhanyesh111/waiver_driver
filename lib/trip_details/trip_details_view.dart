@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:waiver_driver/app_bar/app_bar.dart';
 import 'package:waiver_driver/app_buttons/app_buttons.dart';
 import 'package:waiver_driver/app_routes/app_routes.dart';
+import 'package:waiver_driver/error_page/error_page.dart';
+import 'package:waiver_driver/loading_animation/loading_animation.dart';
 import 'package:waiver_driver/rating/rating_view.dart';
 import 'package:waiver_driver/trip_details/trip_details_controller.dart';
 
@@ -22,142 +24,155 @@ class TripDetailsView extends StatelessWidget {
             onTap: () => Get.toNamed(AppRoutes.help),
             child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                child: Text("Help")))
+                child: const Text("Help")))
       ]),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 15.sp),
-        children: [
-          SizedBox(
-            height: 25.sp,
-          ),
-          MyRideExpansionTileTripDetails(),
-          SizedBox(
-            height: 25.sp,
-          ),
-          Text(
-            "₹${TripDetailsController.to.earnings}",
-            style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.black),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-              "Payment made successfully by cash ${TripDetailsController.to.paymentMode}",
-              style: TextStyle(fontSize: 14.sp, color: AppColors.grey93),
-              textAlign: TextAlign.center),
-          SizedBox(
-            height: 15.sp,
-          ),
-          Divider(
-            height: 1,
-            color: AppColors.grey155,
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          TripDetailsItemView(
-            text: "Date & Time",
-            value: DateFormat("dd MMM yyyy 'at' hh : mm a")
-                .format(TripDetailsController.to.rideTime),
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          TripDetailsItemView(
-              text: "Service", value: TripDetailsController.to.service),
-          SizedBox(
-            height: 15.sp,
-          ),
-          TripDetailsItemView(
-            text: "Distance",
-            value: TripDetailsController.to.distance,
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("You rated ${TripDetailsController.to.passengerName} "),
-              StarBuilder(count: TripDetailsController.to.rating)
-            ],
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          Container(
-            width: Get.width,
-            color: AppColors.grey249,
-            padding: EdgeInsets.all(15.sp),
-            child: Text(
-              "Receipt",
-              style: TextStyle(
-                  fontWeight: FontWeight.w500, color: AppColors.black),
-            ),
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          ReceiptItemView(
-            text: "Trip Fare",
-            value: "₹ ${TripDetailsController.to.tipFare}",
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          ReceiptItemView(
-            text: "Promo",
-            value: "-₹ ${TripDetailsController.to.promo}",
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          ReceiptItemView(
-            text: "Tax",
-            value: "₹ ${TripDetailsController.to.tax}",
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          Divider(
-            height: 1,
-            color: AppColors.grey155,
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Payment",
-                style: TextStyle(
-                  color: AppColors.black,
-                  fontSize: 14.sp,
-                ),
-              ),
-              Text(
-                TripDetailsController.to.payment,
-                style: TextStyle(
-                  color: AppColors.black,
-                  fontSize: 14.sp,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-          BlueButton(
-            text: "Done",
-            onTap: () => Get.back(),
-          ),
-          SizedBox(
-            height: 15.sp,
-          ),
-        ],
-      ),
+      body: GetX<TripDetailsController>(builder: (controller) {
+        return controller.isLoading.value
+            ? LoadingBarsAnimation()
+            : controller.isError.value
+                ? ErrorPage()
+                : ListView(
+                    padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                    children: [
+                      SizedBox(
+                        height: 25.sp,
+                      ),
+                      MyRideExpansionTileTripDetails(),
+                      SizedBox(
+                        height: 25.sp,
+                      ),
+                      Text(
+                        "₹${TripDetailsController.to.earnings}",
+                        style: TextStyle(
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.black),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                          "Payment made successfully by ${TripDetailsController.to.paymentMode}",
+                          style: TextStyle(
+                              fontSize: 14.sp, color: AppColors.grey93),
+                          textAlign: TextAlign.center),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      Divider(
+                        height: 1,
+                        color: AppColors.grey155,
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      TripDetailsController.to.rideTime != null
+                          ? TripDetailsItemView(
+                              text: "Date & Time",
+                              value: DateFormat("dd MMM yyyy 'at' hh : mm a")
+                                  .format(TripDetailsController.to.rideTime!),
+                            )
+                          : SizedBox(),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      TripDetailsItemView(
+                          text: "Service",
+                          value: TripDetailsController.to.service ?? ""),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      TripDetailsItemView(
+                        text: "Distance",
+                        value: TripDetailsController.to.distance ?? "",
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                              "You rated ${TripDetailsController.to.passengerName} "),
+                          StarBuilder(
+                              count: TripDetailsController.to.rating ?? 0)
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      Container(
+                        width: Get.width,
+                        color: AppColors.grey249,
+                        padding: EdgeInsets.all(15.sp),
+                        child: Text(
+                          "Receipt",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.black),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      ReceiptItemView(
+                        text: "Trip Fare",
+                        value: "₹ ${TripDetailsController.to.tripFare ?? 0}",
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      ReceiptItemView(
+                        text: "Promo",
+                        value: "-₹ ${TripDetailsController.to.promo ?? ""}",
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      ReceiptItemView(
+                        text: "Tax",
+                        value: "-₹ ${TripDetailsController.to.tax ?? ""}",
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      Divider(
+                        height: 1,
+                        color: AppColors.grey155,
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Payment",
+                            style: TextStyle(
+                              color: AppColors.black,
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                          Text(
+                            TripDetailsController.to.payment ?? "",
+                            style: TextStyle(
+                              color: AppColors.black,
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                      BlueButton(
+                        text: "Done",
+                        onTap: () => Get.back(),
+                      ),
+                      SizedBox(
+                        height: 15.sp,
+                      ),
+                    ],
+                  );
+      }),
     );
   }
 }
@@ -179,7 +194,7 @@ class TripDetailsItemView extends StatelessWidget {
           ),
         ),
         Text(
-          text,
+          value,
           style: TextStyle(
             color: AppColors.black,
             fontSize: 14.sp,
@@ -207,7 +222,7 @@ class ReceiptItemView extends StatelessWidget {
           ),
         ),
         Text(
-          text,
+          value,
           style: TextStyle(
             color: AppColors.black,
             fontSize: 14.sp,
@@ -242,7 +257,7 @@ class MyRideExpansionTileTripDetails extends StatelessWidget {
               SizedBox(
                 width: 230.sp,
                 child: Text(
-                  TripDetailsController.to.tripStart,
+                  TripDetailsController.to.tripStart ?? "",
                   style: TextStyle(fontSize: 14.sp),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -256,7 +271,7 @@ class MyRideExpansionTileTripDetails extends StatelessWidget {
               SizedBox(
                 width: 230.sp,
                 child: Text(
-                  TripDetailsController.to.tripEnd,
+                  TripDetailsController.to.tripEnd ?? "",
                   style: TextStyle(fontSize: 14.sp),
                   overflow: TextOverflow.ellipsis,
                 ),

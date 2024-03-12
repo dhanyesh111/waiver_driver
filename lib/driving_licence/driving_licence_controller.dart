@@ -1,8 +1,13 @@
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../aadhar_card/aadhar_card_model.dart';
+import '../api_services/api_services.dart';
 import '../app_colors/app_colors.dart';
+import '../chauffeur_proof/chauffeur_proof_controller.dart';
+import '../enums/enums.dart';
 
 class DrivingLicenceControllerBinding extends Bindings {
   @override
@@ -51,7 +56,7 @@ class DrivingLicenceController extends GetxController {
     Get.back();
   }
 
-  uploadDocument() {
+  uploadDocument() async {
     if (drivingLicenceFrontSide.value.isEmpty) {
       errorMessageDrivingLicence.value =
           "Please upload front side of your aadhar card";
@@ -61,7 +66,21 @@ class DrivingLicenceController extends GetxController {
           "Please upload back side of your aadhar card";
       showErrorMessageDrivingLicence.value = true;
     } else {
-      Get.back();
+      List<http.MultipartFile> files = [
+        await http.MultipartFile.fromPath(
+            "files[0]", drivingLicenceFrontSide.value),
+        await http.MultipartFile.fromPath(
+            "files[1]", drivingLicenceBackSide.value),
+      ];
+      Map<String, String> fields = {"document_type": "LCS"};
+      UploadAadharResponseModel response =
+          await ApiServices.uploadDocument(files: files, fields: fields);
+
+      if (response.status == 200) {
+        ChauffeurProofController.to.drivingLicense.approvalStatus.value =
+            ChauffeurProofApprovalStatus.waitingForApproval;
+        Get.back();
+      }
     }
   }
 }

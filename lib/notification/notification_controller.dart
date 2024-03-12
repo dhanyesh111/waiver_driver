@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:waiver_driver/api_services/api_services.dart';
 
 import 'notification_model.dart';
 
@@ -10,27 +12,38 @@ class NotificationControllerBinding extends Bindings {
 }
 
 class NotificationController extends GetxController {
+  @override
+  void onInit() async {
+    super.onInit();
+    try {
+      isLoading.value = true;
+      await getNotifications();
+      isError.value = false;
+    } catch (error) {
+      isError.value = true;
+    } finally {
+      isLoading.value = false;
+    }
+    scrollController.addListener(() {
+      if (isListCompeted.value &&
+          scrollController.position.maxScrollExtent ==
+              scrollController.position.pixels) {
+        getNotifications();
+      }
+    });
+  }
+
+  RxBool isLoading = false.obs;
+  RxBool isError = false.obs;
+  RxBool isListCompeted = false.obs;
+  ScrollController scrollController = ScrollController();
+  getNotifications() async {
+    GetNotificationsResponseModel response =
+        await ApiServices.getNotifications();
+    notification.addAll(response.data?.results ?? []);
+    isListCompeted.value = response.data?.next ?? false;
+  }
+
   static NotificationController get to => Get.find();
-  List<NotificationModel> notification = <NotificationModel>[
-    NotificationModel(
-        header: "Discount 35% Off",
-        text: "Special promo only for today!",
-        type: "offer"),
-    NotificationModel(
-        header: "Cash Back 20% Off",
-        text: "Special promo only for today!",
-        type: "schedule"),
-    NotificationModel(
-        header: "Payment Successful!",
-        text: "Special promo only for today!",
-        type: "payment"),
-    NotificationModel(
-        header: "Payment Successful!",
-        text: "Special promo only for today!",
-        type: "payment"),
-    NotificationModel(
-        header: "Discount 75% Off",
-        text: "Special promo only for today!",
-        type: "offer")
-  ];
+  RxList<NotificationModel> notification = <NotificationModel>[].obs;
 }

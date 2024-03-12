@@ -7,8 +7,12 @@ import 'package:waiver_driver/app_colors/app_colors.dart';
 import 'package:waiver_driver/app_routes/app_routes.dart';
 import 'package:waiver_driver/assets/icons.dart';
 import 'package:waiver_driver/circle_with_gradient/circle_with_gradient.dart';
+import 'package:waiver_driver/empty_page/empty_page.dart';
+import 'package:waiver_driver/error_page/error_page.dart';
 import 'package:waiver_driver/my_rides/my_rides_controller.dart';
 import 'package:waiver_driver/my_rides/my_rides_model.dart';
+
+import '../loading_animation/loading_animation.dart';
 
 class MyRidesScreen extends StatelessWidget {
   const MyRidesScreen({Key? key}) : super(key: key);
@@ -17,23 +21,47 @@ class MyRidesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: appBar(title: "My Rides"),
-        body: ListView(
-          padding: EdgeInsets.symmetric(vertical: 30.sp, horizontal: 15.sp),
-          children: MyRidesController.to.myRides
-              .map((ride) => MyRidesListingItem(ride: ride))
-              .toList(),
-        ));
+        body: GetX<MyRidesController>(builder: (controller) {
+          return controller.isLoading.value
+              ? LoadingBarsAnimation()
+              : controller.isError.value
+                  ? ErrorPage()
+                  : controller.myRides.isEmpty
+                      ? EmptyPage(text: "No Rides Found")
+                      : ListView(
+                          controller: MyRidesController.to.scrollController,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 30.sp, horizontal: 15.sp),
+                          children: [
+                            GetX<MyRidesController>(builder: (controller) {
+                              return Column(
+                                children: MyRidesController.to.myRides
+                                    .map((ride) =>
+                                        MyRidesListingItem(ride: ride))
+                                    .toList(),
+                              );
+                            }),
+                            GetX<MyRidesController>(builder: (controller) {
+                              return controller.isListCompeted.value
+                                  ? LoadingBarsAnimation(
+                                      height: 200.sp,
+                                    )
+                                  : const SizedBox();
+                            })
+                          ],
+                        );
+        }));
   }
 }
 
 class MyRidesListingItem extends StatelessWidget {
-  MyRidesModel ride;
+  Ride ride;
   MyRidesListingItem({required this.ride});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.tripDetails),
+      onTap: () => Get.toNamed(AppRoutes.tripDetails, arguments: ride.id),
       child: Container(
         margin: EdgeInsets.only(bottom: 15.sp),
         decoration: BoxDecoration(
@@ -55,7 +83,7 @@ class MyRidesListingItem extends StatelessWidget {
                       height: 15.sp,
                     ),
                   ),
-                  text: ride.km,
+                  text: ride.distance ?? "",
                 ),
                 MyRideTopItem(
                   icon: CircleWithIcon(
@@ -67,7 +95,7 @@ class MyRidesListingItem extends StatelessWidget {
                       height: 15.sp,
                     ),
                   ),
-                  text: ride.time,
+                  text: ride.duration ?? "",
                 ),
                 MyRideTopItem(
                   icon: CircleWithIcon(
@@ -79,7 +107,7 @@ class MyRidesListingItem extends StatelessWidget {
                       height: 15.sp,
                     ),
                   ),
-                  text: ride.earnings,
+                  text: ride.amount ?? "",
                 ),
               ],
             ),
@@ -93,17 +121,21 @@ class MyRidesListingItem extends StatelessWidget {
                   "Date & Time",
                   style: TextStyle(fontSize: 14.sp),
                 ),
-                Text(
-                  DateFormat("dd MMM yyyy 'at' hh:mm a").format(ride.rideStart),
-                  style: TextStyle(fontSize: 14.sp),
-                )
+                ride.paidTime != null
+                    ? Text(
+                        DateFormat("dd MMM yyyy 'at' hh:mm a")
+                            .format(ride.paidTime!),
+                        style: TextStyle(fontSize: 14.sp),
+                      )
+                    : SizedBox()
               ],
             ),
             SizedBox(
               height: 18.sp,
             ),
             MyRideExpansionTile(
-              stops: ride.stops,
+              start: "Sdfasd",
+              stop: "asvkghd",
             )
           ],
         ),
@@ -113,8 +145,9 @@ class MyRidesListingItem extends StatelessWidget {
 }
 
 class MyRideExpansionTile extends StatelessWidget {
-  List<String> stops;
-  MyRideExpansionTile({required this.stops});
+  String start;
+  String stop;
+  MyRideExpansionTile({required this.start, required this.stop});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -137,7 +170,7 @@ class MyRideExpansionTile extends StatelessWidget {
               SizedBox(
                 width: 230.sp,
                 child: Text(
-                  stops.first,
+                  start,
                   style: TextStyle(fontSize: 14.sp),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -151,7 +184,7 @@ class MyRideExpansionTile extends StatelessWidget {
               SizedBox(
                 width: 230.sp,
                 child: Text(
-                  stops.last,
+                  stop,
                   style: TextStyle(fontSize: 14.sp),
                   overflow: TextOverflow.ellipsis,
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../app_colors/app_colors.dart';
 
@@ -45,10 +46,10 @@ class AppTextFormField extends StatelessWidget {
             ? Column(
                 children: [
                   Text(
-                    header,
+                    header.tr,
                     style: TextStyle(
                         fontSize: 15.sp,
-                        color: AppColors.black,
+                        color: themeColors["Black"],
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
@@ -186,7 +187,7 @@ class AppDropDownFormField<T> extends StatelessWidget {
                 itemHeight: null,
                 isExpanded: true,
                 hint: Text(
-                  placeHolder ?? "",
+                  placeHolder ?? "Select",
                   style: TextStyle(color: AppColors.grey122, fontSize: 14.sp),
                 ),
                 style: TextStyle(fontSize: 16.sp, color: AppColors.grey93),
@@ -245,4 +246,14 @@ class AppDropDownFormField<T> extends StatelessWidget {
       ),
     );
   }
+}
+
+Map<String, Color> themeColors = {
+  "Black": Get.testMode ? AppColors.black : AppColors.white
+};
+
+fu() {}
+
+extension ThemeColorChange on String {
+  Color get theme => themeColors[this] ?? Colors.white;
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:waiver_driver/app_buttons/app_buttons.dart';
 import 'package:waiver_driver/assets/icons.dart';
 import 'package:waiver_driver/validators/validators.dart';
@@ -70,10 +71,13 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               height: 60.sp,
             ),
-            BlueButton(
-              text: "Next",
-              onTap: () => LoginController.to.next(),
-            )
+            GetX<LoginController>(builder: (controller) {
+              return BlueButton(
+                text: "Next",
+                isLoading: controller.isButtonLoading.value,
+                onTap: () => controller.sendPhoneOtp(),
+              );
+            })
           ],
         ));
   }

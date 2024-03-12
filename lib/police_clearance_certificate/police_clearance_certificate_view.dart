@@ -67,14 +67,14 @@ class PoliceClearanceCertificateScreen extends StatelessWidget {
                   return UpLoadImageTemplate(
                       width: 150.sp,
                       height: 270.sp,
-                      image: controller.profilePhoto.value,
+                      image: controller.policeClearanceCertificate.value,
                       onTap: (ImageSource source) =>
                           controller.uploadPhoto(source: source));
                 }),
               ],
             ),
             GetX<PoliceClearanceCertificateController>(builder: (controller) {
-              return controller.showErrorMessageProfilePhoto.value
+              return controller.showErrorMessagePoliceClearanceCertificate.value
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

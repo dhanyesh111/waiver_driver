@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:waiver_driver/api_services/api_services.dart';
 import 'package:waiver_driver/app_routes/app_routes.dart';
 import 'package:waiver_driver/assets/images.dart';
 
-import '../otp/otp_model.dart';
+import '../snackbar/snackbar.dart';
 import 'login_model.dart';
 
 class LoginControllerBinding extends Bindings {
@@ -22,8 +23,9 @@ class LoginController extends GetxController {
     super.onInit();
   }
 
-  TextEditingController controllerPhoneNumber = TextEditingController();
+  RxBool isButtonLoading = false.obs;
 
+  TextEditingController controllerPhoneNumber = TextEditingController();
   GlobalKey<FormState> formKeyForLoginPage = GlobalKey();
 
   CountryModel? selectedCountry;
@@ -31,12 +33,37 @@ class LoginController extends GetxController {
     CountryModel(image: AppImages.indiaFlag, name: "India", mobileCode: '+91')
   ];
 
-  next() {
+  sendPhoneOtp() async {
     if (formKeyForLoginPage.currentState?.validate() ?? false) {
-      Get.toNamed(AppRoutes.otp,
-          arguments: ArgumentModelForOtp(
-              mobileNumber: controllerPhoneNumber.text,
-              mobileCode: selectedCountry?.mobileCode ?? ""));
+      try {
+        isButtonLoading.value = true;
+        Map<String, String> body = {
+          "phone": controllerPhoneNumber.text.trim(),
+          "code": selectedCountry?.mobileCode ?? "",
+        };
+        SendPhoneOtpResponseModel response =
+            await ApiServices.sendPhoneOtp(body: body);
+        if (response.status == 200) {
+          Get.toNamed(AppRoutes.otp,
+              arguments: ArgumentModelForOtpPage(
+                  mobileCode: selectedCountry?.mobileCode ?? "",
+                  mobilePhoneNumber: controllerPhoneNumber.text.trim(),
+                  user: Get.arguments));
+        }
+        Get.showSnackbar(GetSnackBar(
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.transparent,
+            padding: EdgeInsets.zero,
+            messageText: AppSnackBar(text: response.message ?? "")));
+      } catch (error) {
+        Get.showSnackbar(const GetSnackBar(
+            duration: Duration(seconds: 5),
+            backgroundColor: Colors.transparent,
+            padding: EdgeInsets.zero,
+            messageText: AppSnackBar(text: "OOPS Something went Wrong")));
+      } finally {
+        isButtonLoading.value = false;
+      }
     }
   }
 }

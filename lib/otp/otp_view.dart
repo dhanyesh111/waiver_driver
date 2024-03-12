@@ -87,10 +87,13 @@ class OtpScreen extends StatelessWidget {
             SizedBox(
               height: 50.sp,
             ),
-            BlueButton(
-              text: "Confirm",
-              onTap: () => OtpController.to.confirm(),
-            )
+            GetX<OtpController>(builder: (controller) {
+              return BlueButton(
+                text: "Confirm",
+                isLoading: controller.isButtonLoading.value,
+                onTap: () => OtpController.to.validateOtp(),
+              );
+            })
           ],
         ));
   }

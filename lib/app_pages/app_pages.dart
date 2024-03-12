@@ -5,10 +5,8 @@ import 'package:waiver_driver/aadhar_card/aadhar_card_controller.dart';
 import 'package:waiver_driver/aadhar_card/aadhar_card_view.dart';
 import 'package:waiver_driver/account_related/account_related_controller.dart';
 import 'package:waiver_driver/account_related/account_related_view.dart';
-import 'package:waiver_driver/add_driver/add_driver_controller.dart';
-import 'package:waiver_driver/add_driver/add_driver_view.dart';
-import 'package:waiver_driver/add_vehicle/add_vehicle_controller.dart';
-import 'package:waiver_driver/add_vehicle/add_vehicle_view.dart';
+import 'package:waiver_driver/add_driver/add_vehicle_controller.dart';
+import 'package:waiver_driver/add_driver/add_vehicle_view.dart';
 import 'package:waiver_driver/bank_account/bank_account_controller.dart';
 import 'package:waiver_driver/bank_account/bank_account_view.dart';
 import 'package:waiver_driver/chauffeur_proof/chauffeur_proof_controller.dart';
@@ -21,8 +19,6 @@ import 'package:waiver_driver/driving_licence/driving_licence_controller.dart';
 import 'package:waiver_driver/driving_licence/driving_licence_view.dart';
 import 'package:waiver_driver/earning/earning_controller.dart';
 import 'package:waiver_driver/earning/earning_view.dart';
-import 'package:waiver_driver/faq/faq_controller.dart';
-import 'package:waiver_driver/faq/faq_view.dart';
 import 'package:waiver_driver/faq_details/faq_details_controller.dart';
 import 'package:waiver_driver/faq_details/faq_details_view.dart';
 import 'package:waiver_driver/faq_listing/faq_listing_controller.dart';
@@ -59,6 +55,7 @@ import 'package:waiver_driver/refer_and_earn/refer_and_earn_controller.dart';
 import 'package:waiver_driver/refer_and_earn/refer_and_earn_view.dart';
 import 'package:waiver_driver/registration/registration_controller.dart';
 import 'package:waiver_driver/registration/registration_view.dart';
+import 'package:waiver_driver/registration_certificate/registration_certificate_view.dart';
 import 'package:waiver_driver/setting/setting_controller.dart';
 import 'package:waiver_driver/setting/setting_view.dart';
 import 'package:waiver_driver/sign_in/sign_in_controller.dart';
@@ -67,27 +64,34 @@ import 'package:waiver_driver/splash/splash_controller.dart';
 import 'package:waiver_driver/splash/splash_view.dart';
 import 'package:waiver_driver/trip_details/trip_details_controller.dart';
 import 'package:waiver_driver/trip_details/trip_details_view.dart';
-import 'package:waiver_driver/vehicle_details/vehicle_details_controller.dart';
-import 'package:waiver_driver/vehicle_details/vehicle_details_view.dart';
+import 'package:waiver_driver/vehicle_insurance/vehicle_insurance_controller.dart';
+import 'package:waiver_driver/vehicle_insurance/vehicle_insurance_view.dart';
+import 'package:waiver_driver/vehicle_permit/vehicle_permit_controller.dart';
+import 'package:waiver_driver/vehicle_permit/vehicle_permit_view.dart';
 import 'package:waiver_driver/vehicle_proof/vehicle_proof_controller.dart';
 import 'package:waiver_driver/vehicle_proof/vehicle_proof_view.dart';
 import 'package:waiver_driver/view_bank_account/view_bank_account_controller.dart';
 import 'package:waiver_driver/view_bank_account/view_bank_bank_view.dart';
 import 'package:waiver_driver/waiting_for_authorization/waiting_for_authorization_controller.dart';
 import 'package:waiver_driver/waiting_for_authorization/waiting_for_authorization_view.dart';
-import 'package:waiver_driver/welcome/welcome_controller.dart';
-import 'package:waiver_driver/welcome/welcome_view.dart';
 
+import '../add_vehicle_proof/add_vehicle_proof_controller.dart';
+import '../add_vehicle_proof/add_vehicle_proof_view.dart';
 import '../app_routes/app_routes.dart';
+import '../faq_topics/faq_topic_controller.dart';
+import '../faq_topics/faq_topic_view.dart';
 import '../login/login_controller.dart';
 import '../login/login_view.dart';
+import '../registration_certificate/registration_certificate_controller.dart';
 
 class AppPages {
   static List<GetPage> appPages = <GetPage>[
     GetPage(
         name: AppRoutes.splash,
         page: () => const SplashScreen(),
-        binding: SplashControllerBinding()),
+        bindings: [
+          SplashControllerBinding(),
+        ]),
     GetPage(
         name: AppRoutes.driverTypeSelection,
         page: () => const DriverTypeSelectionScreen(),
@@ -106,8 +110,8 @@ class AppPages {
         binding: OtpControllerBinding()),
     GetPage(
         name: AppRoutes.welcome,
-        page: () => const WelcomeScreen(),
-        binding: WelcomeControllerBinding()),
+        page: () => const DriverTypeSelectionScreen(),
+        binding: DriverProfileControllerBinding()),
     GetPage(
         name: AppRoutes.registration,
         page: () => const RegistrationScreen(),
@@ -207,8 +211,8 @@ class AppPages {
         binding: SettingControllerBinding()),
     GetPage(
         name: AppRoutes.faq,
-        page: () => const FaqScreen(),
-        binding: FaqControllerBinding()),
+        page: () => const FaqTopicsScreen(),
+        binding: FaqTopicControllerBinding()),
     GetPage(
         name: AppRoutes.faqDetails,
         page: () => const FaqDetailsScreen(),
@@ -230,24 +234,32 @@ class AppPages {
         page: () => const FleetHomePageScreen(),
         binding: FleetHomePageControllerBinding()),
     GetPage(
-        name: AppRoutes.addDriver,
-        page: () => const AddDriverScreen(),
-        binding: AddDriverControllerBinding()),
+        name: AppRoutes.addVehicle,
+        page: () => const AddVehicleScreen(),
+        binding: AddVehicleControllerBinding()),
     GetPage(
         name: AppRoutes.vehicleProof,
         page: () => const VehicleProofScreen(),
         binding: VehicleProofControllerBinding()),
     GetPage(
-        name: AppRoutes.vehicleDetails,
-        page: () => const VehicleDetailsScreen(),
-        binding: VehicleDetailsControllerBinding()),
-    GetPage(
-        name: AppRoutes.addVehicle,
-        page: () => const AddVehicleScreen(),
-        binding: AddVehicleControllerBinding()),
+        name: AppRoutes.addProofVehicle,
+        page: () => const AddVehicleProofScreen(),
+        binding: AddVehicleProofControllerBinding()),
     GetPage(
         name: AppRoutes.driverProfile,
         page: () => const DriverProfileScreen(),
         binding: DriverProfileControllerBinding()),
+    GetPage(
+        name: AppRoutes.vehicleInsurance,
+        page: () => const VehicleInsuranceScreen(),
+        binding: VehicleInsuranceControllerBinding()),
+    GetPage(
+        name: AppRoutes.vehiclePermit,
+        page: () => const VehiclePermitScreen(),
+        binding: VehiclePermitControllerBinding()),
+    GetPage(
+        name: AppRoutes.registrationCertificate,
+        page: () => const RegistrationCertificateScreen(),
+        binding: RegistrationCertificateControllerBinding()),
   ];
 }

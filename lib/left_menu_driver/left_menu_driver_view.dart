@@ -6,16 +6,16 @@ import 'package:waiver_driver/app_buttons/app_buttons.dart';
 import 'package:waiver_driver/app_colors/app_colors.dart';
 import 'package:waiver_driver/app_routes/app_routes.dart';
 import 'package:waiver_driver/assets/icons.dart';
-import 'package:waiver_driver/left_menu/left_menu_controller.dart';
 
-import 'left_menu_model.dart';
+import 'left_menu_driver_controller.dart';
+import 'left_menu_driver_model.dart';
 
-class LeftMenu extends StatelessWidget {
-  const LeftMenu({super.key});
+class LeftMenuDriver extends StatelessWidget {
+  const LeftMenuDriver({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(LeftMenuController());
+    Get.put(LeftMenuControllerDriver());
     return Container(
       width: Get.width * .7,
       height: Get.height,
@@ -49,64 +49,64 @@ class LeftMenu extends StatelessWidget {
             height: 14.sp,
           ),
           LeftMenuItem(
-            item: LeftMenuController.to.myEarning,
+            item: LeftMenuControllerDriver.to.myEarning,
             onTap: () => Get.offAndToNamed(AppRoutes.earning),
           ),
           SizedBox(
             height: 30.sp,
           ),
           LeftMenuItem(
-            item: LeftMenuController.to.bankDetails,
+            item: LeftMenuControllerDriver.to.bankDetails,
             onTap: () => Get.offAndToNamed(AppRoutes.viewBankAccount),
           ),
           SizedBox(
             height: 30.sp,
           ),
           LeftMenuItem(
-            item: LeftMenuController.to.rating,
+            item: LeftMenuControllerDriver.to.rating,
             onTap: () => Get.offAndToNamed(AppRoutes.rating),
           ),
           SizedBox(
             height: 30.sp,
           ),
           LeftMenuItem(
-            item: LeftMenuController.to.myRides,
+            item: LeftMenuControllerDriver.to.myRides,
             onTap: () => Get.offAndToNamed(AppRoutes.myRides),
           ),
           SizedBox(
             height: 30.sp,
           ),
           LeftMenuItem(
-            item: LeftMenuController.to.referAndEarn,
+            item: LeftMenuControllerDriver.to.referAndEarn,
             onTap: () => Get.offAndToNamed(AppRoutes.referAndEarn),
           ),
           SizedBox(
             height: 30.sp,
           ),
           LeftMenuItem(
-            item: LeftMenuController.to.notification,
+            item: LeftMenuControllerDriver.to.notification,
             onTap: () => Get.offAndToNamed(AppRoutes.notification),
           ),
           SizedBox(
             height: 30.sp,
           ),
           LeftMenuItem(
-            item: LeftMenuController.to.setting,
+            item: LeftMenuControllerDriver.to.setting,
             onTap: () => Get.offAndToNamed(AppRoutes.setting),
           ),
           SizedBox(
             height: 30.sp,
           ),
           LeftMenuItem(
-            item: LeftMenuController.to.help,
+            item: LeftMenuControllerDriver.to.help,
             onTap: () => Get.offAndToNamed(AppRoutes.help),
           ),
           SizedBox(
             height: 30.sp,
           ),
           LeftMenuItem(
-            item: LeftMenuController.to.logOut,
-            onTap: () => LeftMenuController.to.logout(),
+            item: LeftMenuControllerDriver.to.logOut,
+            onTap: () => LeftMenuControllerDriver.to.logout(),
           )
         ],
       ),

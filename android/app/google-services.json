@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "829138435676",
+    "project_id": "waiver-driver-9584e",
+    "storage_bucket": "waiver-driver-9584e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829138435676:android:afe885c7906cad562eb099",
+        "android_client_info": {
+          "package_name": "com.waiver.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "829138435676-227fu4cjm39bpeg8smucfet255s0cnek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waiver.driver",
+            "certificate_hash": "30f31737617b1654900c6fbb89d9539c4e2e9bc8"
+          }
+        },
+        {
+          "client_id": "829138435676-531h72vl259teiqgmlr6tramgdtctnie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waiver.driver",
+            "certificate_hash": "d9619f75749abca255088cce0b9a155baa419e90"
+          }
+        },
+        {
+          "client_id": "829138435676-3svpck1mbonivau8cbdgeinis9e2cfd8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLzRD7VULLb323vCcsG5QdTvbJdLhDbrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "829138435676-3svpck1mbonivau8cbdgeinis9e2cfd8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "829138435676-fth64bettqsis01042p6a8msf1nunft4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.waiver.driver"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

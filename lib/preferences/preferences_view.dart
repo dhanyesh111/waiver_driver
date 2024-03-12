@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:waiver_driver/app_bar/app_bar.dart';
 import 'package:waiver_driver/app_colors/app_colors.dart';
+import 'package:waiver_driver/error_page/error_page.dart';
+import 'package:waiver_driver/loading_animation/loading_animation.dart';
 import 'package:waiver_driver/preferences/preferences_controller.dart';
 
 class PreferencesScreen extends StatelessWidget {
@@ -12,91 +14,102 @@ class PreferencesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: appBar(title: "Preferences"),
-        body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 15.sp),
-          children: [
-            SizedBox(height: 25.sp),
-            Text(
-              "Email",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16.sp,
-              ),
-            ),
-            SizedBox(height: 14.sp),
-            PreferenceListingItem(
-              text: "Allow email for promotion & offers",
-              value: PreferencesController.to.allowEmailForPromotionAndOffers,
-              onTap: () => PreferencesController.to
-                  .changeAllowEmailForPromotionAndOffers(),
-            ),
-            SizedBox(height: 14.sp),
-            PreferenceListingItem(
-              text: "Allow email for invoice",
-              value: PreferencesController.to.allowEmailForInvoice,
-              onTap: () =>
-                  PreferencesController.to.changeAllowEmailForInvoice(),
-            ),
-            SizedBox(height: 25.sp),
-            Text(
-              "SMS & Whatsapp",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16.sp,
-              ),
-            ),
-            SizedBox(height: 14.sp),
-            PreferenceListingItem(
-              text: "Allow SMS for invoice",
-              value: PreferencesController.to.allowSMSForInvoice,
-              onTap: () => PreferencesController.to.changeAllowSMSForInvoice(),
-            ),
-            PreferenceListingItem(
-              text: "Allow SMS for promotion & offers",
-              value: PreferencesController.to.allowSMSForPromotionAndOffers,
-              onTap: () => PreferencesController.to
-                  .changeAllowSMSForPromotionAndOffers(),
-            ),
-            SizedBox(height: 14.sp),
-            PreferenceListingItem(
-              text: "Allow update to be sent on Whatsapp",
-              value: PreferencesController.to.allowUpdateToBeSentOnWhatsapp,
-              onTap: () => PreferencesController.to
-                  .changeAllowUpdateToBeSentOnWhatsapp(),
-            ),
-            SizedBox(height: 25.sp),
-            Text(
-              "Push Notification",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16.sp,
-              ),
-            ),
-            SizedBox(height: 14.sp),
-            PreferenceListingItem(
-              text: "Allow push notification",
-              value: PreferencesController.to.allowPushNotification,
-              onTap: () =>
-                  PreferencesController.to.changeAllowPushNotification(),
-            ),
-            SizedBox(height: 25.sp),
-            Text(
-              " Picture in Picture (PIP)",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16.sp,
-              ),
-            ),
-            SizedBox(height: 14.sp),
-            PreferenceListingItem(
-              text: "Allow push notification",
-              value: PreferencesController.to.allowPictureInPictureAccess,
-              onTap: () =>
-                  PreferencesController.to.changeAllowPictureInPictureAccess(),
-            ),
-            SizedBox(height: 30.sp),
-          ],
-        ));
+        body: GetX<PreferencesController>(builder: (controller) {
+          return controller.isLoading.value
+              ? LoadingBarsAnimation()
+              : controller.isError.value
+                  ? ErrorPage()
+                  : ListView(
+                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                      children: [
+                        SizedBox(height: 25.sp),
+                        Text(
+                          "Email",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                        SizedBox(height: 14.sp),
+                        PreferenceListingItem(
+                          text: "Allow email for promotion & offers",
+                          value: PreferencesController
+                              .to.allowEmailForPromotionAndOffers,
+                          onTap: () => PreferencesController.to
+                              .changeAllowEmailForPromotionAndOffers(),
+                        ),
+                        SizedBox(height: 14.sp),
+                        PreferenceListingItem(
+                          text: "Allow email for invoice",
+                          value: PreferencesController.to.allowEmailForInvoice,
+                          onTap: () => PreferencesController.to
+                              .changeAllowEmailForInvoice(),
+                        ),
+                        SizedBox(height: 25.sp),
+                        Text(
+                          "SMS & Whatsapp",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                        SizedBox(height: 14.sp),
+                        PreferenceListingItem(
+                          text: "Allow SMS for invoice",
+                          value: PreferencesController.to.allowSMSForInvoice,
+                          onTap: () => PreferencesController.to
+                              .changeAllowSMSForInvoice(),
+                        ),
+                        PreferenceListingItem(
+                          text: "Allow SMS for promotion & offers",
+                          value: PreferencesController
+                              .to.allowSMSForPromotionAndOffers,
+                          onTap: () => PreferencesController.to
+                              .changeAllowSMSForPromotionAndOffers(),
+                        ),
+                        SizedBox(height: 14.sp),
+                        PreferenceListingItem(
+                          text: "Allow update to be sent on Whatsapp",
+                          value: PreferencesController
+                              .to.allowUpdateToBeSentOnWhatsapp,
+                          onTap: () => PreferencesController.to
+                              .changeAllowUpdateToBeSentOnWhatsapp(),
+                        ),
+                        SizedBox(height: 25.sp),
+                        Text(
+                          "Push Notification",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                        SizedBox(height: 14.sp),
+                        PreferenceListingItem(
+                          text: "Allow push notification",
+                          value: PreferencesController.to.allowPushNotification,
+                          onTap: () => PreferencesController.to
+                              .changeAllowPushNotification(),
+                        ),
+                        SizedBox(height: 25.sp),
+                        Text(
+                          " Picture in Picture (PIP)",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                        SizedBox(height: 14.sp),
+                        PreferenceListingItem(
+                          text: "Allow push notification",
+                          value: PreferencesController
+                              .to.allowPictureInPictureAccess,
+                          onTap: () => PreferencesController.to
+                              .changeAllowPictureInPictureAccess(),
+                        ),
+                        SizedBox(height: 30.sp),
+                      ],
+                    );
+        }));
   }
 }
 

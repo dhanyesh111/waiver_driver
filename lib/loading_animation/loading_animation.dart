@@ -8,10 +8,12 @@ import 'loding_animation_controller.dart';
 class LoadingBarsAnimation extends StatelessWidget {
   final double? height;
   final double? width;
+  final bool? expanded;
 
   const LoadingBarsAnimation({
     super.key,
     this.width,
+    this.expanded,
     this.height,
   });
 
@@ -24,7 +26,7 @@ class LoadingBarsAnimation extends StatelessWidget {
     const double evenDotHeight = 40;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 140),
+      padding: EdgeInsets.symmetric(horizontal: expanded ?? false ? 30 : 140),
       alignment: Alignment.center,
       width: width ?? Get.width,
       height: height ?? Get.height,

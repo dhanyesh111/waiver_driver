@@ -34,9 +34,12 @@ class AppRoutes {
   static String preferences = "/preferences";
   static String accountRelated = "/accountRelated";
   static String fleetHomePage = "/fleetHomePage";
-  static String addDriver = "/addDriver";
+  static String addVehicle = "/addDriver";
   static String vehicleProof = "/vehicleProof";
   static String vehicleDetails = "/vehicleDetails";
-  static String addVehicle = "/addVehicle";
+  static String addProofVehicle = "/addVehicle";
   static String driverProfile = "/driverProfile";
+  static String registrationCertificate = "/registrationCertificate";
+  static String vehicleInsurance = "/vehicleInsurance";
+  static String vehiclePermit = "/vehiclePermit";
 }
